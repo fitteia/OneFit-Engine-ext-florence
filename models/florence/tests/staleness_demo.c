@@ -11,7 +11,7 @@
  * silently reuses freq1's old result instead of recomputing for freq2. */
 int main(void) {
     double SI = 0.5, GAMMAI = 2.675222e8, SPIN = 2.5, IREL = 1;
-    double DELTA2 = 0.0236, TAURM = 2.88e-11, TAUVM = 2.86e-12, TAUMM = 0.0;
+    double DELTA2 = 0.0236, TAURM = 2.88e-11, TAUVM = 2.86e-12, TAUMM = 0.0, TAUDELTA = 2.0;
     double DPARAM = 0.0, EPARAM = 0.0, S4M = 0.0;
     double GXM = 2.003, GYM = 2.003, GZM = 2.003;
     double AXM = 0.0, AYM = 0.0, AZM = 0.0;
@@ -23,7 +23,7 @@ int main(void) {
 
 #define CALL(FREQ, IDX) \
     FlorenceN((double)(IDX), 5.0, (FREQ), SI, GAMMAI, SPIN, IREL, DELTA2, \
-              TAURM, TAUVM, TAUMM, DPARAM, EPARAM, S4M, GXM, GYM, GZM, AXM, \
+              TAURM, TAUVM, TAUMM, TAUDELTA, DPARAM, EPARAM, S4M, GXM, GYM, GZM, AXM, \
               AYM, AZM, DM, DDM, CONCM, ACQ, AMOLFRAM, RKM, ACONTM, THETAM, \
               PHIM, FLAG)
 
@@ -32,7 +32,7 @@ int main(void) {
 
     /* independent, cache-free ground truth for freq2's index 0 */
     truth = Florence(freq2, SI, GAMMAI, SPIN, IREL, DELTA2, TAURM, TAUVM,
-                      TAUMM, DPARAM, EPARAM, S4M, GXM, GYM, GZM, AXM, AYM,
+                      TAUMM, TAUDELTA, DPARAM, EPARAM, S4M, GXM, GYM, GZM, AXM, AYM,
                       AZM, DM, DDM, CONCM, ACQ, AMOLFRAM, RKM, ACONTM, THETAM,
                       PHIM, FLAG);
 

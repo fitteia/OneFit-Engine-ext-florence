@@ -72,6 +72,7 @@ double FlorenceN(
       double TAURM,
       double TAUVM,
       double TAUMM,
+      double TAUDELTA,
       double DPARAM,
       double EPARAM,
       double S4M,
@@ -93,7 +94,7 @@ double FlorenceN(
       double FLAG
 )
 {
-    const double parameters[28] = { SI, GAMMAI, SPIN, IREL, DELTA2, TAURM, TAUVM, TAUMM, 2.0, DPARAM, EPARAM, S4M, GXM, GYM, GZM, AXM, AYM, AZM, DM, DDM, CONCM, ACQ, AMOLFRAM, RKM, ACONTM, THETAM, PHIM, FLAG };
+    const double parameters[28] = { SI, GAMMAI, SPIN, IREL, DELTA2, TAURM, TAUVM, TAUMM, TAUDELTA, DPARAM, EPARAM, S4M, GXM, GYM, GZM, AXM, AYM, AZM, DM, DDM, CONCM, ACQ, AMOLFRAM, RKM, ACONTM, THETAM, PHIM, FLAG };
     (void)n; /* Legacy grouping hint; cache identity now uses actual inputs. */
     return florence_component(FREQ, parameters, index);
 }
@@ -110,6 +111,7 @@ double FlorenceN4LS(
       double TAURM,
       double TAUVM,
       double TAUMM,
+      double TAUDELTA,
       double DPARAM,
       double EPARAM,
       double S4M,
@@ -131,7 +133,7 @@ double FlorenceN4LS(
       double FLAG
 )
 {
-    const double parameters[28] = { SI, GAMMAI, SPIN, IREL, DELTA2, TAURM, TAUVM, TAUMM, 2.0, DPARAM, EPARAM, S4M, GXM, GYM, GZM, AXM, AYM, AZM, DM, DDM, CONCM, ACQ, AMOLFRAM, RKM, ACONTM, THETAM, PHIM, FLAG };
+    const double parameters[28] = { SI, GAMMAI, SPIN, IREL, DELTA2, TAURM, TAUVM, TAUMM, TAUDELTA, DPARAM, EPARAM, S4M, GXM, GYM, GZM, AXM, AYM, AZM, DM, DDM, CONCM, ACQ, AMOLFRAM, RKM, ACONTM, THETAM, PHIM, FLAG };
     (void)n; /* Legacy grouping hint; cache identity now uses actual inputs. */
     return florence_component(FREQ, parameters, index);
 }
@@ -146,6 +148,7 @@ double Florence(
       double TAURM,
       double TAUVM,
       double TAUMM,
+      double TAUDELTA,
       double DPARAM,
       double EPARAM,
       double S4M,
@@ -167,7 +170,7 @@ double Florence(
       double FLAG
 )
 {
-    const double parameters[28] = { SI, GAMMAI, SPIN, IREL, DELTA2, TAURM, TAUVM, TAUMM, 2.0, DPARAM, EPARAM, S4M, GXM, GYM, GZM, AXM, AYM, AZM, DM, DDM, CONCM, ACQ, AMOLFRAM, RKM, ACONTM, THETAM, PHIM, FLAG };
+    const double parameters[28] = { SI, GAMMAI, SPIN, IREL, DELTA2, TAURM, TAUVM, TAUMM, TAUDELTA, DPARAM, EPARAM, S4M, GXM, GYM, GZM, AXM, AYM, AZM, DM, DDM, CONCM, ACQ, AMOLFRAM, RKM, ACONTM, THETAM, PHIM, FLAG };
     return florence_component(FREQ, parameters, 0.0);
 }
 
@@ -182,6 +185,7 @@ double Florence4(
       double TAURM,
       double TAUVM,
       double TAUMM,
+      double TAUDELTA,
       double DPARAM,
       double EPARAM,
       double S4M,
@@ -203,6 +207,6 @@ double Florence4(
       double FLAG
 )
 {
-    const double parameters[28] = { SI, GAMMAI, SPIN, IREL, DELTA2, TAURM, TAUVM, TAUMM, 2.0, DPARAM, EPARAM, S4M, GXM, GYM, GZM, AXM, AYM, AZM, DM, DDM, CONCM, ACQ, AMOLFRAM, RKM, ACONTM, THETAM, PHIM, FLAG };
+    const double parameters[28] = { SI, GAMMAI, SPIN, IREL, DELTA2, TAURM, TAUVM, TAUMM, TAUDELTA, DPARAM, EPARAM, S4M, GXM, GYM, GZM, AXM, AYM, AZM, DM, DDM, CONCM, ACQ, AMOLFRAM, RKM, ACONTM, THETAM, PHIM, FLAG };
     return florence_component(FREQ, parameters, index);
 }

@@ -30,6 +30,15 @@ done
 diff -u "$HERE/golden_output.txt" "$WORK/actual.txt"
 echo "PASS: Florence golden output"
 
+echo "== TAUDELTA pass-through regression =="
+"$WORK/driver" 1e6 1 2 > "$WORK/taudelta2.txt"
+"$WORK/driver" 1e6 1 1 > "$WORK/taudelta1.txt"
+if cmp -s "$WORK/taudelta2.txt" "$WORK/taudelta1.txt"; then
+  echo "FAIL: TAUDELTA does not reach the Fortran backend"
+  exit 1
+fi
+echo "PASS: Florence TAUDELTA pass-through"
+
 echo "== stale-cache regression =="
 "$WORK/staleness_demo" | tee "$WORK/stale.txt"
 grep -q 'MATCH: yes' "$WORK/stale.txt"

@@ -13,6 +13,7 @@
 int main(int argc, char **argv) {
     double SI = 0.5, GAMMAI = 2.675222e8, SPIN = 2.5, IREL = 1;
     double DELTA2 = 0.0236, TAURM = 2.88e-11, TAUVM = 2.86e-12, TAUMM = 0.0;
+    double TAUDELTA = argc > 3 ? atof(argv[3]) : 2.0;
     double DPARAM = 0.0, EPARAM = 0.0, S4M = 0.0;
     double GXM = 2.003, GYM = 2.003, GZM = 2.003;
     double AXM = 0.0, AYM = 0.0, AZM = 0.0;
@@ -23,27 +24,27 @@ int main(int argc, char **argv) {
     int idx;
 
     printf("Florence  freq=%.6e flag=%.0f -> %.15e\n", FREQ, FLAG,
-        Florence(FREQ, SI, GAMMAI, SPIN, IREL, DELTA2, TAURM, TAUVM, TAUMM,
+        Florence(FREQ, SI, GAMMAI, SPIN, IREL, DELTA2, TAURM, TAUVM, TAUMM, TAUDELTA,
                  DPARAM, EPARAM, S4M, GXM, GYM, GZM, AXM, AYM, AZM, DM, DDM,
                  CONCM, ACQ, AMOLFRAM, RKM, ACONTM, THETAM, PHIM, FLAG));
     for (idx = 0; idx <= 4; ++idx) {
         printf("Florence4 idx=%d -> %.15e\n", idx,
             Florence4((double)idx, FREQ, SI, GAMMAI, SPIN, IREL, DELTA2, TAURM,
-                      TAUVM, TAUMM, DPARAM, EPARAM, S4M, GXM, GYM, GZM, AXM, AYM,
+                      TAUVM, TAUMM, TAUDELTA, DPARAM, EPARAM, S4M, GXM, GYM, GZM, AXM, AYM,
                       AZM, DM, DDM, CONCM, ACQ, AMOLFRAM, RKM, ACONTM, THETAM,
                       PHIM, FLAG));
     }
     for (idx = 0; idx <= 4; ++idx) {
         printf("FlorenceN idx=%d -> %.15e\n", idx,
             FlorenceN((double)idx, 5.0, FREQ, SI, GAMMAI, SPIN, IREL, DELTA2,
-                      TAURM, TAUVM, TAUMM, DPARAM, EPARAM, S4M, GXM, GYM, GZM,
+                      TAURM, TAUVM, TAUMM, TAUDELTA, DPARAM, EPARAM, S4M, GXM, GYM, GZM,
                       AXM, AYM, AZM, DM, DDM, CONCM, ACQ, AMOLFRAM, RKM, ACONTM,
                       THETAM, PHIM, FLAG));
     }
     for (idx = 0; idx <= 4; ++idx) {
         printf("FlorenceN4LS idx=%d -> %.15e\n", idx,
             FlorenceN4LS((double)idx, 5.0, FREQ, SI, GAMMAI, SPIN, IREL, DELTA2,
-                      TAURM, TAUVM, TAUMM, DPARAM, EPARAM, S4M, GXM, GYM, GZM,
+                      TAURM, TAUVM, TAUMM, TAUDELTA, DPARAM, EPARAM, S4M, GXM, GYM, GZM,
                       AXM, AYM, AZM, DM, DDM, CONCM, ACQ, AMOLFRAM, RKM, ACONTM,
                       THETAM, PHIM, FLAG));
     }
