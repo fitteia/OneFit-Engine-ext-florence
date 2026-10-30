@@ -1,0 +1,53 @@
+name: CI
+
+# Every pull request and push to main, and once a week: the tests
+# inside Debian containers - trixie (stable, must pass) and forky (testing,
+# the next stable: allowed to fail, an early warning of what the next Debian
+# release will change; the weekly run catches it moving between pushes).
+on:
+  pull_request:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '17 5 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: test (debian ${{ matrix.debian }})
+    runs-on: ubuntu-24.04
+    container: debian:${{ matrix.debian }}
+    continue-on-error: ${{ matrix.debian == 'forky' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        debian: [trixie, forky]
+    steps:
+      # git first, so actions/checkout makes a real git checkout
+      - name: Debian packages
+        run: |
+          apt-get update -qq
+          apt-get install -y -qq --no-install-recommends git ca-certificates \
+            gcc gfortran make perl liblapack-dev libblas-dev
+
+      - uses: actions/checkout@v4
+        with:
+          path: extension
+
+      - name: Model tests
+        run: |
+          for t in extension/models/*/tests/run_tests.sh; do
+            echo "== $t"; bash "$t"
+          done
+
+      # The validator wants the bundle in a directory named after it, as
+      # the installer places it (C/extensions/<name>).
+      - name: Validate the bundle with onefite-c-code's extensions.pl
+        run: |
+          git clone --depth 1 https://github.com/fitteia/OneFit-Engine-C.git C
+          name="$(perl -MJSON::PP -0777 -ne 'print decode_json($_)->{name}' extension/extension.json)"
+          mkdir -p bundles && cp -r extension "bundles/$name"
+          perl C/tools/extensions.pl validate "bundles/$name" --c-root C

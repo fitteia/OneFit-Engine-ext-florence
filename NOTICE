@@ -1,0 +1,19 @@
+OneFit-Engine-ext-florence
+
+This is the public, redistributable copy of the OneFit external model
+extensions. From florence 0.3.1 on, it contains no NAG Library code and
+no other externally sourced numerical routines whose redistribution
+terms were unclear - those have been removed and replaced with
+independent reimplementations (see each model's own NOTICE for details,
+including the correction for releases 0.1.0 to 0.3.0, which still held
+NAG-derived eigenvector normalisation and error-handling code).
+
+A separate, private repository (OneFit-Engine-ext-florence-nag)
+holds the original, NAG-derived history for anyone who already holds
+the appropriate NAG Library license and prefers the original
+implementation. It is not linked from here and is not distributed
+alongside this repository; see the top-level README for how to use it
+if you have that license.
+
+Consult each models/*/LICENSE and models/*/NOTICE for the specific
+license and provenance of that model bundle.

@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "name": "florence",
+  "version": "0.3.3",
+  "requires_base": ">=6.0.0",
+  "provides": [
+    "florence",
+    "florenceN",
+    "florenceN4LS",
+    "florence4",
+    "florenceLS"
+  ],
+  "conflicts": [
+    "florence-nag"
+  ],
+  "sources": [
+    "models/florence/Florence_c.c",
+    "models/florence/Florence_f.f",
+    "models/florence/FlorenceLS.c"
+  ],
+  "headers": [
+    "models/florence/Florence_c.h",
+    "models/florence/Florence_f.h"
+  ],
+  "declarations": [
+    "models/florence/Florence_c.h"
+  ],
+  "extra_libs": [],
+  "fflags": [
+    "-std=legacy"
+  ],
+  "metadata": "models/florence/META-C-model.json",
+  "tests": "models/florence/tests/run_tests.sh",
+  "license": {
+    "spdx": "Artistic-2.0",
+    "files": [
+      "LICENSE",
+      "NOTICE",
+      "models/florence/LICENSE",
+      "models/florence/NOTICE"
+    ],
+    "redistributable": true
+  }
+}

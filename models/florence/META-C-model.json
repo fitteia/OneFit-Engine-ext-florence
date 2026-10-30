@@ -1,0 +1,44 @@
+{
+  "name": "florence",
+  "license": {
+    "spdx": "Artistic-2.0",
+    "license_file": "LICENSE",
+    "notice_file": "NOTICE"
+  },
+  "sources": [
+    "Florence_c.c",
+    "Florence_f.f",
+    "FlorenceLS.c"
+  ],
+  "headers": [
+    "Florence_c.h",
+    "Florence_f.h"
+  ],
+  "functions": {
+    "florence": {
+      "devision": "Paramagnetic",
+      "function": "Florence(FREQ,SI,GAMMAI,SPIN,IREL,DELTA2,TAURM,TAUVM,TAUMM,TAUDELTA,DPARAM,EPARAM,S4M,GXM,GYM,GZM,AXM,AYM,AZM,DM,DDM,CONCM,ACQ,AMOLFRAM,RKM,ACONTM,THETAM,PHIM,FLAG)",
+      "description": "Cite: Bertini, Galas, Luchinat, Parigi, J. Magn. Reson. Ser. A 113, 151 (1995); for 2 <= FLAG < 3 (modified model) also J. Chem. Phys. 111, 5795 (1999) and Phys. Chem. Chem. Phys. 3, 4907 (2001). TAUDELTA = 2 (the previous fixed value): DELTA2 is the zero-field splitting squared, with electron relaxation modulated by TAUVM; any other value: DELTA2 is taken directly as the electron relaxation time tauS0."
+    },
+    "florenceN": {
+      "devision": "Paramagnetic",
+      "function": "FlorenceN(index,n,FREQ,SI,GAMMAI,SPIN,IREL,DELTA2,TAURM,TAUVM,TAUMM,TAUDELTA,DPARAM,EPARAM,S4M,GXM,GYM,GZM,AXM,AYM,AZM,DM,DDM,CONCM,ACQ,AMOLFRAM,RKM,ACONTM,THETAM,PHIM,FLAG)",
+      "description": "Cite: Bertini, Galas, Luchinat, Parigi, J. Magn. Reson. Ser. A 113, 151 (1995); for 2 <= FLAG < 3 (modified model) also J. Chem. Phys. 111, 5795 (1999) and Phys. Chem. Chem. Phys. 3, 4907 (2001). TAUDELTA = 2 (the previous fixed value): DELTA2 is the zero-field splitting squared, with electron relaxation modulated by TAUVM; any other value: DELTA2 is taken directly as the electron relaxation time tauS0."
+    },
+    "florenceN4LS": {
+      "devision": "Paramagnetic",
+      "function": "FlorenceN4LS(index,n,FREQ,SI,GAMMAI,SPIN,IREL,DELTA2,TAURM,TAUVM,TAUMM,TAUDELTA,DPARAM,EPARAM,S4M,GXM,GYM,GZM,AXM,AYM,AZM,DM,DDM,CONCM,ACQ,AMOLFRAM,RKM,ACONTM,THETAM,PHIM,FLAG)",
+      "description": "FlorenceN() and FlorenceN4LS() are identical. Cite: Bertini, Galas, Luchinat, Parigi, J. Magn. Reson. Ser. A 113, 151 (1995); for 2 <= FLAG < 3 (modified model) also J. Chem. Phys. 111, 5795 (1999) and Phys. Chem. Chem. Phys. 3, 4907 (2001). TAUDELTA = 2 (the previous fixed value): DELTA2 is the zero-field splitting squared, with electron relaxation modulated by TAUVM; any other value: DELTA2 is taken directly as the electron relaxation time tauS0."
+    },
+    "florence4": {
+      "devision": "Paramagnetic",
+      "function": "Florence4(index,FREQ,SI,GAMMAI,SPIN,IREL,DELTA2,TAURM,TAUVM,TAUMM,TAUDELTA,DPARAM,EPARAM,S4M,GXM,GYM,GZM,AXM,AYM,AZM,DM,DDM,CONCM,ACQ,AMOLFRAM,RKM,ACONTM,THETAM,PHIM,FLAG)",
+      "description": "Cite: Bertini, Galas, Luchinat, Parigi, J. Magn. Reson. Ser. A 113, 151 (1995); for 2 <= FLAG < 3 (modified model) also J. Chem. Phys. 111, 5795 (1999) and Phys. Chem. Chem. Phys. 3, 4907 (2001). TAUDELTA = 2 (the previous fixed value): DELTA2 is the zero-field splitting squared, with electron relaxation modulated by TAUVM; any other value: DELTA2 is taken directly as the electron relaxation time tauS0."
+    },
+    "florenceLS": {
+      "devision": "Paramagnetic",
+      "function": "FlorenceLS(index,FREQ,SI,GAMMAI,SPIN,DELTA2,TAURM,TAUVM,TAUMM,TAUDELTA,DPARAM,EPARAM,GXM,GYM,GZM,AXM,AYM,AZM,CONCM,RKM,DM,DDM,ACONTM,AMOLFRAM,THETAM,PHIM,SLS,TAULM,FLAG)",
+      "description": "Florence R1 with Lipari-Szabo local motion, SLS = order parameter S (not S^2): the paramagnetic rate is SLS^2 R1M(TAURM) + (1-SLS^2) R1M(TAURM*TAULM/(TAURM+TAULM)), then exchange with TAUMM, then the outer sphere (independent of TAURM). index 1, 2, 3 = dipolar, contact, cross part of the exchange-limited inner sphere, 4 = outer sphere, other = total; 1..4 add up to the total, so FlorenceLS(1,...)\\+FlorenceLS(2,...)\\+FlorenceLS(3,...)\\+FlorenceLS(4,...) plots the contributions. The pieces of one point share one evaluation (two Florence runs, one when SLS is 0 or 1). R1 only (IREL = 1), S4M = 0. Note the argument order (CONCM, RKM, DM, DDM, ACONTM, AMOLFRAM) differs from FlorenceN. Cite: Bertini, Galas, Luchinat, Parigi, J. Magn. Reson. Ser. A 113, 151 (1995); for 2 <= FLAG < 3 (modified model) also J. Chem. Phys. 111, 5795 (1999) and Phys. Chem. Chem. Phys. 3, 4907 (2001); Lipari, Szabo, J. Am. Chem. Soc. 104, 4546 (1982). TAUDELTA as in FlorenceN."
+    }
+  }
+}
