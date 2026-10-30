@@ -41,7 +41,8 @@ stopping point, round-off differences in the model can lead MINUIT to
 a different chi², so the 0.3-6% differences recorded below say nothing
 about either eigensolver, and the fitted parameters and errors of these
 fits are not reference values. These files are kept as timing
-benchmarks. Parity is checked on the model itself: the golden test
+benchmarks; `../fit-reference/` has a converged fit with known answers,
+checked values and uncertainties. Parity is checked on the model itself: the golden test
 (`../run_tests.sh`), the random-matrix sweep against `ZHEEV`
 (`../test_cheevhqr.f`, linked with the production solver), and a
 comparison of the Florence outputs of this bundle and the NAG one.

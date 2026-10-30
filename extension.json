@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "name": "florence",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "requires_base": ">=6.0.0",
   "provides": [
     "florence",
