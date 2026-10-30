@@ -3969,19 +3969,22 @@ C     J of VR (real parts) and VI (imaginary parts) the eigenvector of
 C     WR(J). Each eigenvector has unit length, and its phase is chosen
 C     so that its component of largest modulus (the first such
 C     component, on ties) is real and positive. The eigensolver is
-C     CHEEVHQR below. WK1, WK2 and WK3 are not used.
+C     CHEEVHQR below, on the matrix scaled by a power of 2 that brings
+C     its largest element near 1 (exact, so results do not change, but
+C     the sums of squares in CHTRIDR neither underflow nor overflow);
+C     the eigenvalues are scaled back. WK1, WK2 and WK3 are not used.
 C     IFAIL on return: 0 = success, 1 = the QL iteration did not
-C     converge, 2 = a diagonal element of AI is not zero. If IFAIL is 0
-C     on entry, a failure writes a message to unit 0 and stops the
-C     program; with any other value on entry the code is only
-C     returned.
+C     converge, 2 = a diagonal element of AI is not zero, 3 = an element
+C     is not finite. If IFAIL is 0 on entry, a failure writes a message
+C     to unit 0 and stops the program with status 1; with any other
+C     value on entry the code is only returned.
       IMPLICIT NONE
       INTEGER IAR, IAI, IVR, IVI, N, IFAIL
       DOUBLE PRECISION AR(IAR,N), AI(IAI,N), WR(N)
       DOUBLE PRECISION VR(IVR,N), VI(IVI,N), WK1(N), WK2(N), WK3(N)
       DOUBLE PRECISION HR(N,N), HI(N,N)
-      DOUBLE PRECISION VNORM2, PEAK, MOD2, SCALE, CR, CI, XR, XI
-      INTEGER I, J, KPEAK, INFO, IERR, IENTRY
+      DOUBLE PRECISION VNORM2, PEAK, MOD2, RNORM, CR, CI, XR, XI, AMAX
+      INTEGER I, J, KPEAK, INFO, IERR, IENTRY, KSC
 
       IENTRY = IFAIL
       IERR = 0
@@ -4001,10 +4004,34 @@ C     triangle its complex conjugate.
             HI(J,I) = -AI(I,J)
    20    CONTINUE
    30 CONTINUE
+      AMAX = 0.0D0
+      DO 34 J = 1, N
+         DO 32 I = 1, N
+            AMAX = MAX(AMAX, ABS(HR(I,J)), ABS(HI(I,J)))
+            IF (.NOT.(ABS(HR(I,J)).LE.HUGE(AMAX) .AND.
+     *                ABS(HI(I,J)).LE.HUGE(AMAX))) IERR = 3
+   32    CONTINUE
+   34 CONTINUE
+      IF (IERR.NE.0) GO TO 900
+      KSC = 0
+      IF (AMAX.GT.0.0D0) KSC = -EXPONENT(AMAX)
+      IF (KSC.NE.0) THEN
+         DO 38 J = 1, N
+            DO 36 I = 1, N
+               HR(I,J) = SCALE(HR(I,J), KSC)
+               HI(I,J) = SCALE(HI(I,J), KSC)
+   36       CONTINUE
+   38    CONTINUE
+      ENDIF
       CALL CHEEVHQR(N, HR, HI, N, WR, INFO)
       IF (INFO.NE.0) THEN
          IERR = 1
          GO TO 900
+      ENDIF
+      IF (KSC.NE.0) THEN
+         DO 39 J = 1, N
+            WR(J) = SCALE(WR(J), -KSC)
+   39    CONTINUE
       ENDIF
 C     Column J of HR/HI is now the eigenvector of WR(J). Multiply it
 C     by conj(z)/(|z|*|v|), z its first component of largest modulus.
@@ -4024,9 +4051,9 @@ C     by conj(z)/(|z|*|v|), z its first component of largest modulus.
             CR = 1.0D0
             CI = 0.0D0
          ELSE
-            SCALE = 1.0D0/(SQRT(VNORM2)*SQRT(PEAK))
-            CR = HR(KPEAK,J)*SCALE
-            CI = -HI(KPEAK,J)*SCALE
+            RNORM = 1.0D0/(SQRT(VNORM2)*SQRT(PEAK))
+            CR = HR(KPEAK,J)*RNORM
+            CI = -HI(KPEAK,J)*RNORM
          ENDIF
          DO 50 I = 1, N
             XR = HR(I,J)
@@ -4041,7 +4068,7 @@ C     by conj(z)/(|z|*|v|), z its first component of largest modulus.
       IF (IENTRY.EQ.0) THEN
          WRITE (0,'(A,I2)') ' ** Florence eigensolver failed, code',
      *                      IERR
-         STOP
+         STOP 1
       ENDIF
       RETURN
       END

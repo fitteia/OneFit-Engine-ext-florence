@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "name": "OneFit-Engine-ext-florence",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "models": ["florence"],
   "license_policy": "per-model"
 }

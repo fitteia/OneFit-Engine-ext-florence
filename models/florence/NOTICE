@@ -71,6 +71,14 @@ history starts at 0.3.3: the earlier history, which contains the
 versions with NAG-derived code, was moved to a private archive and is
 not redistributed.
 
+Florence 0.3.5 (2026-10-30): OFHEIG's failure stop exits with status 1
+(it exited with 0, so a fit stopped by it looked successful), and OFHEIG
+scales the matrix by a power of 2 that brings its largest element near
+1 before solving, then scales the eigenvalues back - exact, so Florence
+outputs are bit-identical, but matrices from 1e-300 to 1e300 now solve
+(the sums of squares in CHTRIDR underflowed below about 1e-150 and
+overflowed above about 1e150). A NaN or infinite element is IFAIL 3.
+
 This went through two implementations. The first replaced the NAG code with
 LAPACK's ZHEEV (BSD-3-Clause), verified numerically equivalent via (1) a
 synthetic head-to-head comparison against the original NAG-derived code

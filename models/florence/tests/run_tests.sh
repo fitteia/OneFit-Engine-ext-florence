@@ -15,6 +15,7 @@ gcc -I"$MODEL" "$HERE/staleness_demo.c" "$WORK/f.o" "$WORK/c.o" -lgfortran -lm -
 gcc -I"$MODEL" "$HERE/test_unsupported.c" "$WORK/f.o" "$WORK/c.o" -lgfortran -lm -o "$WORK/test_unsupported"
 gfortran -c -ffixed-form -std=legacy "$HERE/test_eigensolver.f" -o "$WORK/test_eigensolver.o"
 gfortran "$WORK/test_eigensolver.o" "$WORK/f.o" -o "$WORK/test_eigensolver"
+gfortran -ffixed-form -std=legacy "$HERE/test_solver_fatal.f" "$WORK/f.o" -o "$WORK/test_solver_fatal"
 
 echo "== eigensolver known-answer regression =="
 "$WORK/test_eigensolver"
@@ -57,3 +58,10 @@ if "$WORK/test_unsupported" > "$WORK/unsup.out" 2> "$WORK/unsup.err"; then
 fi
 grep -q 'TUNOstock' "$WORK/unsup.err" || { echo "FAIL: no message for the unsupported case"; exit 1; }
 echo "PASS: Florence unsupported case reports an error"
+
+echo "== eigensolver failure stops with status 1 =="
+if "$WORK/test_solver_fatal" > "$WORK/fatal.out" 2> "$WORK/fatal.err"; then
+  echo "FAIL: an OFHEIG failure exited with status 0"; cat "$WORK/fatal.out"; exit 1
+fi
+grep -q 'eigensolver failed, code 2' "$WORK/fatal.err" || { echo "FAIL: no message for the OFHEIG failure"; cat "$WORK/fatal.err"; exit 1; }
+echo "PASS: Florence eigensolver failure reports an error"
